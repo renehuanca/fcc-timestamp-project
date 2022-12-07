@@ -35,19 +35,16 @@ app.get('/api/:date', (req, res) => {
 	} else {
 		if (date.toString() == "Invalid Date") {
 			res.json({error: "Invalid date"})
-		} else {
-			res.json({
-				unix: date.valueOf(), 
+		} else { res.json({ unix: date.valueOf(), 
 				utc: new Date(date).toUTCString()
 			})
 		}
 	}
-	
 })
 
 
 
 // listen for requests :)
-var listener = app.listen(3000 || process.env.PORT, function () {
+var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
