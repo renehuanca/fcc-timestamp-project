@@ -24,8 +24,17 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get('/api', (req, res) => {
+	const date = new Date()
+	res.json({
+		unix: date.valueOf(),
+		utc: date.toUTCString()
+	})
+})
+
 app.get('/api/:date', (req, res) => {
 	const date = req.params.date
+
 	if (/\d{5,}/.test(date)) {
 		const dateNumber = parseInt(date)
 		res.json({
@@ -34,7 +43,7 @@ app.get('/api/:date', (req, res) => {
 		})
 	} else {
 		if (date.toString() == "Invalid Date") {
-			res.json({error: "Invalid date"})
+			res.json({error: "Invalid Date"})
 		} else {
 			console.log(date.valueOf())
 			res.json({ 
