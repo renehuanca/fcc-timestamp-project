@@ -33,7 +33,7 @@ app.get('/api', (req, res) => {
 })
 
 app.get('/api/:date', (req, res) => {
-	const date = req.params.date
+	let date = req.params.date
 
 	// is a invalid date
 	if (new Date(date).toString() == "Invalid Date") {
@@ -51,7 +51,7 @@ app.get('/api/:date', (req, res) => {
 		})
 	}
 
-	const date = new Date(date)	
+	date = new Date(date)	
 	res.json({ 
 		unix: date.valueOf(), 
 		utc: date.toUTCString()
