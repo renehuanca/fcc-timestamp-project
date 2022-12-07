@@ -35,23 +35,27 @@ app.get('/api', (req, res) => {
 app.get('/api/:date', (req, res) => {
 	const date = req.params.date
 
+	// is a invalid date
+	if (new Date(date).toString() == "Invalid Date") {
+		return res.json({
+			error: "Invalid Date"
+		})
+	}
+
+	// is a unix date
 	if (/\d{5,}/.test(date)) {
 		const dateNumber = parseInt(date)
-		res.json({
+		return res.json({
 			unix: dateNumber,
 			utc: new Date(dateNumber).toUTCString()
 		})
-	} else {
-		if (date.toString() == "Invalid Date") {
-			res.json({error: "Invalid Date"})
-		} else {
-			console.log(date.valueOf())
-			res.json({ 
-				unix: new Date(date).valueOf(), 
-				utc: new Date(date).toUTCString()
-			})
-		}
 	}
+
+	const date = new Date(date)	
+	res.json({ 
+		unix: date.valueOf(), 
+		utc: date.toUTCString()
+	})
 })
 
 
